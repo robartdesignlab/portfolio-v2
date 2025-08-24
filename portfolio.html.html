@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BR&SIS MELKONIAN | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ================= НАСТРОЙКИ РАЗМЕРОВ ================= */
+        :root {
+            --accent-color: #c8102e;
+            --light-bg: #f9f9f7;
+            --item-bg: #f0f0f0;
+            
+            /* ОБЩИЙ КОЭФФИЦИЕНТ МАСШТАБИРОВАНИЯ */
+            --scale-factor: 1;
+            
+            /* Автоматическое вычисление размеров на основе коэффициентов */
+            --base-padding: calc(40px * var(--scale-factor));
+            --base-margin: calc(30px * var(--scale-factor));
+            --font-size-base: calc(1em * var(--scale-factor));
+            --h1-size: calc(2.8em * var(--scale-factor));
+            --h2-size: calc(2em * var(--scale-factor));
+            --subtitle-size: calc(1.8em * var(--scale-factor));
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            font-size: var(--font-size-base);
+        }
+        
+        .container {
+            background: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+            padding: var(--base-padding);
+            margin: var(--base-margin) auto;
+            max-width: 1200px;
+            border-radius: 15px;
+        }
+        
+        .header {
+            text-align: center;
+            padding-bottom: calc(3px * var(--scale-factor));
+            margin-bottom: calc(5px * var(--scale-factor));
+        }
+        
+        .logo-container {
+            width: 430px; /* Изменено на 430px */
+            margin: 0 auto calc(3px * var(--scale-factor));
+            display: block;
+            position: relative;
+            transition: width 0.3s ease;
+        }
+        
+        .logo-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #2c2c2c;
+        }
+        
+        h1 {
+            font-size: var(--h1-size);
+            margin-bottom: calc(2px * var(--scale-factor));
+            font-weight: 700;
+            margin-top: 0;
+        }
+        
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: var(--subtitle-size);
+            color: #666;
+            margin-top: 0;
+            margin-bottom: calc(7px * var(--scale-factor));
+            font-weight: 500;
+        }
+        
+        h2 {
+            font-size: var(--h2-size);
+            margin-top: calc(10px * var(--scale-factor));
+            margin-bottom: calc(15px * var(--scale-factor));
+            padding-bottom: calc(8px * var(--scale-factor));
+            border-bottom: 1px solid var(--accent-color);
+            font-weight: 700; /* Более жирный шрифт для заголовков */
+        }
+        
+        .intro {
+            font-size: calc(1.2em * var(--scale-factor));
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: calc(7px * var(--scale-factor));
+        }
+        
+        .highlight {
+            background-color: #f8f5f0;
+            padding: calc(20px * var(--scale-factor));
+            border-radius: calc(10px * var(--scale-factor));
+            margin: calc(5px * var(--scale-factor)) 0;
+        }
+        
+        .photo-row {
+            display: flex;
+            justify-content: space-between;
+            margin: calc(7px * var(--scale-factor)) 0;
+            gap: calc(15px * var(--scale-factor));
+        }
+        
+        .portfolio-image {
+            flex: 1;
+            background-color: var(--item-bg);
+            border-radius: calc(8px * var(--scale-factor));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+            border: 2px solid var(--accent-color);
+            overflow: hidden;
+            position: relative;
+            min-height: 200px;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        
+        /* Стили для контролов изменения размера */
+        .size-control {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3px;
+            border-radius: 3px;
+            display: flex;
+            gap: 5px;
+            z-index: 10;
+        }
+        
+        .size-btn {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .size-display {
+            width: 30px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* Стили для изображений */
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+        
+        .service-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+        
+        .client-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+        
+        .project-showcase {
+            margin: calc(8px * var(--scale-factor)) 0;
+            display: flex;
+            gap: calc(20px * var(--scale-factor));
+        }
+        
+        .project-item {
+            flex: 1;
+            margin-bottom: calc(8px * var(--scale-factor));
+            position: relative;
+        }
+        
+        .project-divider {
+            width: 2px;
+            background-color: #888;
+            margin: 0 calc(10px * var(--scale-factor));
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: calc(15px * var(--scale-factor));
+            margin: calc(7px * var(--scale-factor)) 0;
+        }
+        
+        .service-item {
+            background: white;
+            border-radius: calc(8px * var(--scale-factor));
+            padding: calc(12px * var(--scale-factor));
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .service-image {
+            width: 450px; /* Единый размер для всех сервисов */
+            height: 450px; /* Единый размер для всех сервисов */
+            min-width: 450px; /* Единый размер для всех сервисов */
+            background-color: white;
+            border: none; /* Убрана красная рамка */
+            border-radius: calc(8px * var(--scale-factor));
+            margin-right: calc(15px * var(--scale-factor));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: calc(0.8em * var(--scale-factor));
+            text-align: center;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .service-text {
+            display: flex;
+            align-items: center;
+            font-size: calc(0.95em * var(--scale-factor));
+            font-weight: 600; /* Более жирный шрифт для названий сервисов */
+        }
+        
+        .clients-section {
+            text-align: center;
+            margin: calc(10px * var(--scale-factor)) 0;
+        }
+        
+        .clients-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: calc(5px * var(--scale-factor));
+            gap: calc(25px * var(--scale-factor));
+        }
+        
+        .client-logo {
+            width: 80px;
+            height: 80px;
+            background-color: white; /* Изменено с var(--item-bg) на white */
+            border-radius: calc(8px * var(--scale-factor));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+            font-size: calc(0.8em * var(--scale-factor));
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0;
+            border: none; /* Убрана красная рамка */
+        }
+        
+        .logo-divider {
+            color: var(--accent-color);
+            font-size: calc(20px * var(--scale-factor));
+            font-weight: bold;
+        }
+        
+        .contact-info {
+            padding: calc(7px * var(--scale-factor)) 0;
+            margin-top: calc(10px * var(--scale-factor));
+            text-align: center;
+        }
+        
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .meeting-request {
+            background-color: #f8f5f0;
+            padding: calc(7px * var(--scale-factor));
+            border-radius: calc(10px * var(--scale-factor));
+            margin: calc(8px * var(--scale-factor)) 0;
+            border: 2px solid var(--accent-color);
+            text-align: center;
+            font-weight: 500;
+            font-size: calc(1.1em * var(--scale-factor)); /* Увеличен шрифт */
+        }
+        
+        .final-contact {
+            text-align: center;
+            margin-top: calc(8px * var(--scale-factor));
+            padding: calc(5px * var(--scale-factor));
+            background-color: #f8f5f0;
+            border-radius: calc(10px * var(--scale-factor));
+        }
+        
+        .final-contact p {
+            margin: calc(8px * var(--scale-factor)) 0;
+        }
+        
+        .contact-details {
+            font-family: 'Montserrat', sans-serif;
+            font-size: calc(1.1em * var(--scale-factor));
+            margin: calc(15px * var(--scale-factor)) 0;
+            line-height: 1.8;
+        }
+        
+        .more-projects {
+            text-align: center;
+            margin: calc(8px * var(--scale-factor)) 0;
+            padding: calc(5px * var(--scale-factor));
+            background-color: #f8f5f0;
+            border-radius: calc(10px * var(--scale-factor));
+            font-style: italic;
+        }
+        
+        .cooperation-text {
+            margin: calc(7px * var(--scale-factor)) 0;
+            padding: calc(15px * var(--scale-factor));
+            background-color: #f8f5f0;
+            border-radius: calc(8px * var(--scale-factor));
+        }
+        
+        p {
+            margin: calc(4px * var(--scale-factor)) 0;
+        }
+        
+        .arrow-up {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            margin-left: 5px;
+        }
+        
+        .arrow-down {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid var(--accent-color);
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        
+        .photo-column {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: calc(15px * var(--scale-factor));
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: calc(15px * var(--scale-factor));
+                margin: 0;
+            }
+            .size-control {
+                display: none !important; /* Скрываем кнопки при печати */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .project-showcase {
+                flex-direction: column;
+            }
+            
+            .project-divider {
+                width: 100%;
+                height: 2px;
+                margin: calc(15px * var(--scale-factor)) 0;
+            }
+            
+            .size-control {
+                top: 2px;
+                right: 2px;
+                padding: 2px;
+            }
+            
+            .size-btn {
+                width: 16px;
+                height: 16px;
+                font-size: 10px;
+            }
+            
+            .size-display {
+                width: 25px;
+                font-size: 10px;
+            }
+            
+            .services {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-image {
+                width: 100%; /* Адаптивный размер на мобильных */
+                height: auto; /* Сохраняем пропорции */
+                min-width: unset; /* Убираем фиксированную минимальную ширину */
+                aspect-ratio: 1/1; /* Сохраняем квадратную форму */
+            }
+            
+            .photo-column {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- ЛОГОТИП КОМПАНИИ - изменено расширение на PNG -->
+            <div class="logo-container">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeLogoSize(-10)">-</button>
+                    <span class="size-display" id="logo-size">430</span>
+                    <button class="size-btn" onclick="changeLogoSize(10)">+</button>
+                </div>
+                <img src="logo.png" alt="BR&SIS MELKONIAN Logo" class="logo-image" id="logo" onerror="handleImageError(this)">
+            </div>
+            
+            <h1>FURNITURE AND DECOR MANUFACTURING</h1>
+        </div>
+
+        <p>We are Robert and Lilith Melkonyans, representing our family Atelier.</p>
+
+        <p>For over 13 years, our atelier has been bringing the bold ideas of architects and designers to life. We are thrilled to announce that we are now starting our work in California and are located at <strong>2500 S Susan ST, Santa ana, CA 92704</strong>.</p>
+
+        <div class="highlight">
+            <p>We have a wide base of machines and equipment at our disposal: such as CNC machines, welding, plasma, woodworking machines, sewing machines, bending equipment, painting equipment, and much more.</p>
+        </div>
+
+        <p>Our Atelier has furnished and decorated over 1000 projects in various cities and countries.</p>
+
+        <!-- ФОТО 1 и 2 - измените имена файлов здесь -->
+        <div class="photo-row">
+            <div class="photo-column">
+                <div class="portfolio-image" id="portfolio-image1" data-scale="1.0" style="width: 100%; height: auto;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('portfolio-image1', -0.1)">-</button>
+                        <span class="size-display" id="portfolio-image1-scale">1.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('portfolio-image1', 0.1)">+</button>
+                    </div>
+                    <img src="photo1.jpg" alt="Project photo 1" class="portfolio-img" onerror="handleImageError(this)">
+                </div>
+                <!-- Дополнительный контейнер под фото 1 -->
+                <div class="portfolio-image" id="portfolio-image1-extra" data-scale="1.0" style="width: 100%; height: auto;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('portfolio-image1-extra', -0.1)">-</button>
+                        <span class="size-display" id="portfolio-image1-extra-scale">1.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('portfolio-image1-extra', 0.1)">+</button>
+                    </div>
+                    <img src="photo1-extra.jpg" alt="Additional project photo 1" class="portfolio-img" onerror="handleImageError(this)">
+                </div>
+            </div>
+            <div class="portfolio-image" id="portfolio-image2" data-scale="1.9" style="width: 190%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image2', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image2-scale">1.9</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image2', 0.1)">+</button>
+                </div>
+                <img src="photo2.jpg" alt="Project photo 2" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+        </div>
+
+        <p>Among the projects we have realized are private interiors, interiors of cafes, restaurants, hotels, beauty salons, shopping malls, computer salons, fitness centers, stores, and even cruise liners.</p>
+
+        <p>Over our many years of experience working with both premium designers and newcomers to the field, we have learned to understand the special language of designers and catch your ideas on the fly. You can be confident that your projects will be handled by high-level professionals with the broadest specialization possible in this industry.</p>
+        
+        <p>We highly value the trust of designers. Trust is the key to productive work with us, and the higher your trust, the more vibrant and genetically diverse the items of the new interior become.</p>
+
+        <!-- ФОТО 3-6 - измените имена файлов здесь -->
+        <div class="photo-row">
+            <div class="portfolio-image" id="portfolio-image3" data-scale="1.9" style="width: 190%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image3', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image3-scale">1.9</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image3', 0.1)">+</button>
+                </div>
+                <img src="photo3.jpg" alt="Project photo 3" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+            <div class="portfolio-image" id="portfolio-image4" data-scale="1.9" style="width: 190%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image4', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image4-scale">1.9</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image4', 0.1)">+</button>
+                </div>
+                <img src="photo4.jpg" alt="Project photo 4" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+            <div class="portfolio-image" id="portfolio-image5" data-scale="1.9" style="width: 190%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image5', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image5-scale">1.9</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image5', 0.1)">+</button>
+                </div>
+                <img src="photo5.jpg" alt="Project photo 5" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+            <div class="portfolio-image" id="portfolio-image6" data-scale="1.9" style="width: 190%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image6', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image6-scale">1.9</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image6', 0.1)">+</button>
+                </div>
+                <img src="photo6.jpg" alt="Project photo 6" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+        </div>
+
+        <!-- Дополнительный ряд из 4 фотографий -->
+        <div class="photo-row">
+            <div class="portfolio-image" id="portfolio-image7" data-scale="1.0" style="width: 100%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image7', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image7-scale">1.0</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image7', 0.1)">+</button>
+                </div>
+                <img src="photo7.jpg" alt="Project photo 7" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+            <div class="portfolio-image" id="portfolio-image8" data-scale="1.0" style="width: 100%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image8', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image8-scale">1.0</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image8', 0.1)">+</button>
+                </div>
+                <img src="photo8.jpg" alt="Project photo 8" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+            <div class="portfolio-image" id="portfolio-image9" data-scale="1.0" style="width: 100%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image9', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image9-scale">1.0</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image9', 0.1)">+</button>
+                </div>
+                <img src="photo9.jpg" alt="Project photo 9" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+            <div class="portfolio-image" id="portfolio-image10" data-scale="1.0" style="width: 100%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image10', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image10-scale">1.0</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image10', 0.1)">+</button>
+                </div>
+                <img src="photo10.jpg" alt="Project photo 10" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+        </div>
+
+        <p>We strive to confirm our professionalism through action and regularly participate in both regional and international design competitions in collaboration with architects and designers. This year, our collaboration with the bureau "LAPTIEVA YAKIMOVICH" won the international LIGHTWORDS award with the realized interior of the "BROVUSHKA" beauty salon.</p>
+
+        <!-- ФОТО BROVUSHKA - измените имя файла здесь -->
+        <div class="photo-row">
+            <div class="portfolio-image" style="flex: 1;" id="portfolio-image-brovushka" data-scale="1.0" style="width: 100%; height: auto;">
+                <div class="size-control">
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image-brovushka', -0.1)">-</button>
+                    <span class="size-display" id="portfolio-image-brovushka-scale">1.0</span>
+                    <button class="size-btn" onclick="changeContainerScale('portfolio-image-brovushka', 0.1)">+</button>
+                </div>
+                <img src="brovushka.jpg" alt="BROVUSHKA Beauty Salon" class="portfolio-img" onerror="handleImageError(this)">
+            </div>
+        </div>
+
+        <!-- Удален заголовок "Our Projects" -->
+
+        <div class="project-showcase">
+            <div class="project-item">
+                <h3>cafe BARLuskoni ceiling</h3>
+                <p>This beautiful waffle ceiling you see consists of 1400 unique parts, each with its own coordinates on the curved base of the ceiling with an area of 1350 sq.ft. <span class="arrow-down"></span></p>
+                <!-- ФОТО BARLUSKONI - измените имя файла здесь -->
+                <div class="portfolio-image" id="portfolio-image-barluskoni" data-scale="1.0" style="width: 100%; height: auto;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('portfolio-image-barluskoni', -0.1)">-</button>
+                        <span class="size-display" id="portfolio-image-barluskoni-scale">1.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('portfolio-image-barluskoni', 0.1)">+</button>
+                    </div>
+                    <img src="barluskoni.jpg" alt="Cafe BARLuskoni" class="portfolio-img" onerror="handleImageError(this)">
+                </div>
+            </div>
+
+            <div class="project-divider"></div>
+
+            <div class="project-item">
+                <h3>Reception of the BROVUSHKA beauty salon</h3>
+                <p>In this photo, you see a reception desk with a diameter of 13 feet, welded from steel sheets into a single, indivisible reception with a unique style and multifunctional design <span class="arrow-up">↑</span>.</p>
+                <!-- ФОТО BROVUSHKA RECEPTION - измените имя файла здесь -->
+                <div class="portfolio-image" id="portfolio-image-brovushka_reception" data-scale="1.0" style="width: 100%; height: auto;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('portfolio-image-brovushka_reception', -0.1)">-</button>
+                        <span class="size-display" id="portfolio-image-brovushka_reception-scale">1.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('portfolio-image-brovushka_reception', 0.1)">+</button>
+                    </div>
+                    <img src="brovushka_reception.jpg" alt="BROVUSHKA Reception" class="portfolio-img" onerror="handleImageError(this)">
+                </div>
+            </div>
+        </div>
+
+        <div class="more-projects">
+            <p>More of our projects you can see on our website <strong>robartdesignlab.com</strong> and on our Instagram <strong>@origamidesignlab</strong></p>
+        </div>
+
+        <h2>Our Services</h2>
+        <p>If you are currently in the stage of developing a design project, here is a small booklet of what our atelier can manufacture for your interior:</p>
+
+        <div class="services">
+            <!-- ИЗОБРАЖЕНИЯ УСЛУГ - измените имена файлов здесь -->
+            <div class="service-item">
+                <div class="service-image" id="service-image1" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image1', -0.1)">-</button>
+                        <span class="size-display" id="service-image1-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image1', 0.1)">+</button>
+                    </div>
+                    <img src="service1.jpg" alt="Cabinets and kitchens" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Cabinets and kitchens</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image2" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image2', -0.1)">-</button>
+                        <span class="size-display" id="service-image2-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image2', 0.1)">+</button>
+                    </div>
+                    <img src="service2.jpg" alt="Wardrobe systems" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Wardrobe systems</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image3" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image3', -0.1)">-</button>
+                        <span class="size-display" id="service-image3-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image3', 0.1)">+</button>
+                    </div>
+                    <img src="service3.jpg" alt="Natural wood furniture" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Furniture made from natural wood</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image4" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image4', -0.1)">-</button>
+                        <span class="size-display" id="service-image4-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image4', 0.1)">+</button>
+                    </div>
+                    <img src="service4.jpg" alt="Metal furniture" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Furniture made from steel and non-ferrous metals</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image5" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image5', -0.1)">-</button>
+                        <span class="size-display" id="service-image5-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image5', 0.1)">+</button>
+                    </div>
+                    <img src="service5.jpg" alt="Upholstered furniture" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Upholstered furniture and soft bedside panels</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image6" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image6', -0.1)">-</button>
+                        <span class="size-display" id="service-image6-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image6', 0.1)">+</button>
+                    </div>
+                    <img src="service6.jpg" alt="Bathroom furniture" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Bathroom furniture</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image7" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image7', -0.1)">-</button>
+                        <span class="size-display" id="service-image7-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image7', 0.1)">+</button>
+                    </div>
+                    <img src="service7.jpg" alt="Accent walls" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Accent walls</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image8" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image8', -0.1)">-</button>
+                        <span class="size-display" id="service-image8-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image8', 0.1)">+</button>
+                    </div>
+                    <img src="service8.jpg" alt="Reception desks" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Reception desks and trade equipment</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image9" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image9', -0.1)">-</button>
+                        <span class="size-display" id="service-image9-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image9', 0.1)">+</button>
+                    </div>
+                    <img src="service9.jpg" alt="Hidden doors" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Hidden doors and wall panels</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image10" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image10', -0.1)">-</button>
+                        <span class="size-display" id="service-image10-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image10', 0.1)">+</button>
+                    </div>
+                    <img src="service10.jpg" alt="Stairs" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Stairs made of metal and wood</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image11" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image11', -0.1)">-</button>
+                        <span class="size-display" id="service-image11-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image11', 0.1)">+</button>
+                    </div>
+                    <img src="service11.jpg" alt="Parametric furniture" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Furniture in a parametric style</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image12" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image12', -0.1)">-</button>
+                        <span class="size-display" id="service-image12-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image12', 0.1)">+</button>
+                    </div>
+                    <img src="service12.jpg" alt="Interior decor" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Interior decor of any complexity</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image13" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image13', -0.1)">-</button>
+                        <span class="size-display" id="service-image13-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image13', 0.1)">+</button>
+                    </div>
+                    <img src="service13.png" alt="Liquid metal" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">Furniture and decor with liquid metal coatings</div>
+            </div>
+            <div class="service-item">
+                <div class="service-image" id="service-image14" data-scale="5.0">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('service-image14', -0.1)">-</button>
+                        <span class="size-display" id="service-image14-scale">5.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('service-image14', 0.1)">+</button>
+                    </div>
+                    <img src="service14.png" alt="Stock tables" class="service-img" onerror="handleImageError(this)">
+                </div>
+                <div class="service-text">We also have tables in stock for sale</div>
+            </div>
+        </div>
+
+        <div class="cooperation-text">
+            <p>You can send us your current and future projects for a quote. We are currently running a good discount system for the first order from a designer, in addition to the base designer bonus for a referred client. We are always open to flexible formats of cooperation and will be happy to discuss with you personally. We can also bring several of our works directly to your studio or your site for tactile and visual familiarization with our work and discuss the system of bonuses, discounts, and relationships.</p>
+        </div>
+
+        <div class="clients-section">
+            <h2>Our Clients</h2>
+            <div class="clients-row">
+                <!-- ЛОГОТИПЫ КЛИЕНТОВ - изменили расширения на SVG -->
+                <div class="client-logo" id="client-logo1" data-scale="3.3" style="width: 264px; height: 264px;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('client-logo1', -0.1)">-</button>
+                        <span class="size-display" id="client-logo1-scale">3.3</span>
+                        <button class="size-btn" onclick="changeContainerScale('client-logo1', 0.1)">+</button>
+                    </div>
+                    <img src="client1.svg" alt="Emporio Armani" class="client-logo-img" onerror="handleImageError(this)">
+                </div>
+                <span class="logo-divider">•</span>
+                <div class="client-logo" id="client-logo2" data-scale="3.0" style="width: 240px; height: 240px;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('client-logo2', -0.1)">-</button>
+                        <span class="size-display" id="client-logo2-scale">3.0</span>
+                        <button class="size-btn" onclick="changeContainerScale('client-logo2', 0.1)">+</button>
+                    </div>
+                    <img src="client2.svg" alt="Marco Polo" class="client-logo-img" onerror="handleImageError(this)">
+                </div>
+                <span class="logo-divider">•</span>
+                <div class="client-logo" id="client-logo3" data-scale="2.2" style="width: 176px; height: 176px;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('client-logo3', -0.1)">-</button>
+                        <span class="size-display" id="client-logo3-scale">2.2</span>
+                        <button class="size-btn" onclick="changeContainerScale('client-logo3', 0.1)">+</button>
+                    </div>
+                    <img src="client3.svg" alt="Louis Jo" class="client-logo-img" onerror="handleImageError(this)">
+                </div>
+                <span class="logo-divider">•</span>
+                <div class="client-logo" id="client-logo4" data-scale="1.8" style="width: 144px; height: 144px;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('client-logo4', -0.1)">-</button>
+                        <span class="size-display" id="client-logo4-scale">1.8</span>
+                        <button class="size-btn" onclick="changeContainerScale('client-logo4', 0.1)">+</button>
+                    </div>
+                    <img src="client4.svg" alt="AB InBev" class="client-logo-img" onerror="handleImageError(this)">
+                </div>
+                <span class="logo-divider">•</span>
+                <div class="client-logo" id="client-logo5" data-scale="1.8" style="width: 144px; height: 144px;">
+                    <div class="size-control">
+                        <button class="size-btn" onclick="changeContainerScale('client-logo5', -0.1)">-</button>
+                        <span class="size-display" id="client-logo5-scale">1.8</span>
+                        <button class="size-btn" onclick="changeContainerScale('client-logo5', 0.1)">+</button>
+                    </div>
+                    <img src="client5.svg" alt="Replay" class="client-logo-img" onerror="handleImageError(this)">
+                </div>
+            </div>
+        </div>
+
+        <div class="meeting-request">
+            <p>When would it be convenient for you to meet us personally to get acquainted and see our samples?</p>
+        </div>
+
+        <div class="final-contact">
+            <h3>Contact details for feedback</h3>
+            <div class="contact-details">
+                <p>Phone: <strong>305 339 35 22</strong></p>
+                <p>Instagram: <strong>@origamidesignlab</strong></p>
+                <p>Email: <strong>robartdesignlab@gmail.com</strong></p>
+                <p>Website: <strong>robartdesignlab.com</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция для обработки ошибок загрузки изображений
+        function handleImageError(img) {
+            img.style.display = 'none';
+            const container = img.parentElement;
+            if (container.classList.contains('portfolio-image') || 
+                container.classList.contains('service-image') || 
+                container.classList.contains('client-logo')) {
+                container.innerHTML = 'Image not found';
+                container.style.display = 'flex';
+                container.style.alignItems = 'center';
+                container.style.justifyContent = 'center';
+                container.style.color = '#999';
+                container.style.fontStyle = 'italic';
+            }
+        }
+
+        // Функция для изменения масштаба контейнеров изображений
+        function changeContainerScale(containerId, change) {
+            const container = document.getElementById(containerId);
+            const scaleDisplay = document.getElementById(containerId + '-scale');
+            
+            if (container && scaleDisplay) {
+                let currentScale = parseFloat(container.getAttribute('data-scale') || '1.0');
+                currentScale = Math.max(0.5, currentScale + change);
+                
+                // Увеличиваем максимальный масштаб для сервисов до 5
+                if (containerId.includes('service-image')) {
+                    currentScale = Math.min(5.0, currentScale);
+                } else {
+                    currentScale = Math.min(2.0, currentScale);
+                }
+                
+                // Сохраняем оригинальные размеры, если они еще не сохранены
+                if (!container.hasAttribute('data-original-width')) {
+                    container.setAttribute('data-original-width', container.offsetWidth + 'px');
+                    container.setAttribute('data-original-height', container.offsetHeight + 'px');
+                }
+                
+                const originalWidth = parseFloat(container.getAttribute('data-original-width'));
+                const originalHeight = parseFloat(container.getAttribute('data-original-height'));
+                
+                // Масштабируем контейнер
+                container.style.width = (originalWidth * currentScale) + 'px';
+                container.style.height = (originalHeight * currentScale) + 'px';
+                
+                container.setAttribute('data-scale', currentScale);
+                scaleDisplay.textContent = currentScale.toFixed(1);
+            }
+        }
+
+        // Функция для изменения размера логотипа
+        function changeLogoSize(change) {
+            const logoContainer = document.querySelector('.logo-container');
+            const logo = document.getElementById('logo');
+            const sizeDisplay = document.getElementById('logo-size');
+            
+            if (logoContainer && logo && sizeDisplay) {
+                const currentSize = parseInt(logoContainer.style.width || '430');
+                const newSize = Math.max(50, currentSize + change);
+                
+                logoContainer.style.width = newSize + 'px';
+                sizeDisplay.textContent = newSize;
+                
+                // Сохраняем пропорции логотипа
+                logo.style.width = '100%';
+                logo.style.height = 'auto';
+            }
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('To save as PDF: Press Ctrl+P (Cmd+P on Mac) and choose "Save as PDF"');
+            
+            // Скрываем кнопки после загрузки
+            setTimeout(function() {
+                const buttons = document.querySelectorAll('.size-control');
+                buttons.forEach(button => {
+                    button.style.display = 'none';
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
